@@ -1,0 +1,32 @@
+version: 2
+sources:
+  - name: public
+    schema: public
+    tables:
+      - name: stg_medical_data
+
+models:
+  - name: medical_transformed_data
+    description: "A medical transformed data"
+    columns:
+      - name: message_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: date
+        description: "The date of the message"
+        data_tests:
+          - not_null
+      - name: sender
+        description: "The sender of the message"
+        data_tests:
+          - not_null
+      - name: channel
+        description: "The channel of the message"
+        data_tests:
+          - not_null
+      - name: text
+        description: "The message"
+        data_tests:
+          - not_null
