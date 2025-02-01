@@ -43,9 +43,9 @@ pip install dbt                 # for data transformation
 ```
 1. Clone the Repository:
 >>>>
-    git clone https://github.com/GetieBalew24/Ethiopian-Medical-Data-Warehouse.git`
+    git clone https://github.com/shammuse/DataWareHouse`
 
-    cd Ethiopian-Medical-Data-Warehouse
+    cd DataWarehouse
 >>>>
 
 2. Set up the Virtual Environment:
@@ -65,14 +65,3 @@ Install the required Python packages by running:
 >>>
     pip install -r requirements.txt
 >>>
-## Tasks
-
-- **Task 1**: Scraping Data from Telegram Channels
-- **Task 2**: Data Transformation using DBT
-
-## Contributing
- We welcome contributions to improve the project. Please follow the steps below to contribute:
-
-- Fork the repository.
-- Create a new branch for your feature or bugfix.
-- Submit a pull request with a detailed explanation of your changes.
