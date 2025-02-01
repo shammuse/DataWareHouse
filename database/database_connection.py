@@ -151,3 +151,28 @@ def insert_detection_data(df):
             conn.close()
     else:
         print("Failed to connect to the database.")
+def fetch_data_from_db(conn, table_name):
+    conn = get_db_connection()
+    """Fetch all data from the specified table in the PostgreSQL database."""
+    try:
+        cur = conn.cursor()  # Create a cursor object to interact with the database
+
+        # Define the SQL query
+        select_query = f"SELECT * FROM telegram_data;"
+        cur.execute(select_query)  # Execute the query
+
+        # Fetch all rows from the result
+        rows = cur.fetchall()
+
+        # Log the fetched data
+        for row in rows:
+            print(row)  # You can replace this with logging if needed
+
+        logging.info("Data successfully fetched from the database.")
+        
+    except Exception as e:
+        logging.error("Error fetching data from the database: %s", e)
+    
+    finally:
+        cur.close()  # Close the cursor
+        logging.info("Cursor closed.")
