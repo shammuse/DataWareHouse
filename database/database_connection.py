@@ -118,8 +118,8 @@ def insert_detection_data(df):
         try:
             cursor = conn.cursor()
             insert_query = """
-            INSERT INTO detection_results (image_name, confidence_score, class_name, bbox_coordinates, result_image_path)
-            VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO detection_results (image_name, confidence_score, class_name, bbox_coordinates, result_image_path, detection_time)
+            VALUES (%s, %s, %s, %s, %s, %s)
             """
             # Iterate through the DataFrame rows and insert data into PostgreSQL
             for index, row in df.iterrows():
@@ -138,7 +138,8 @@ def insert_detection_data(df):
                     row['confidence_score'], 
                     row['class_name'], 
                     bbox_coords,
-                    row['result_image_path']
+                    row['result_image_path'],
+                    row['detection_time']
                 ))
 
             # Commit the transaction
