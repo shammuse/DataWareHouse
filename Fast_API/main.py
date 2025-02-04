@@ -1,5 +1,3 @@
-import sys
-#sys.path.append('../')
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 import crud
@@ -20,6 +18,14 @@ def get_db():
         yield db
     finally:
         db.close()
+
+@app.get("/")
+async def read_root():
+    return {"message": "Welcome to the FastAPI application!"}
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return {"message": "No favicon available."}
 
 @app.post("/detection_results/", response_model=schemas.DetectionResult)
 def create_detection_result(result: schemas.DetectionResultCreate, db: Session = Depends(get_db)):

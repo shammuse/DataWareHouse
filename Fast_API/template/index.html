@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>FastAPI User Interface</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Detection Results</h1>
+        <form id="resultForm">
+            <input type="text" id="resultInput" placeholder="Enter detection result" required>
+            <button type="submit">Create Result</button>
+        </form>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        document.getElementById('resultForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const result = document.getElementById('resultInput').value;
+            const response = await fetch('/detection_results/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: result })
+            });
+            const data = await response.json();
+            document.getElementById('results').innerHTML += `<p>${data.message}</p>`;
+        });
+
+        async function fetchResults() {
+            const response = await fetch('/detection_results/');
+            const results = await response.json();
+            const resultsDiv = document.getElementById('results');
+            results.forEach(result => {
+                resultsDiv.innerHTML += `<p>${result.name}</p>`;
+            });
+        }
+
+        fetchResults();
+    </script>
+</body>
+</html>
