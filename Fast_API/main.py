@@ -1,4 +1,7 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
 import crud
 import models
@@ -7,6 +10,12 @@ from database import SessionLocal, engine
 
 # Initialize FastAPI
 app = FastAPI()
+
+# Serve static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Set up templates
+templates = Jinja2Templates(directory="templates")
 
 # Create the database tables
 models.Base.metadata.create_all(bind=engine)
@@ -19,13 +28,9 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/")
-async def read_root():
-    return {"message": "Welcome to the FastAPI application!"}
-
-@app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    return {"message": "No favicon available."}
+@app.get("/", response_class=HTMLResponse)
+async def read_root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/detection_results/", response_model=schemas.DetectionResult)
 def create_detection_result(result: schemas.DetectionResultCreate, db: Session = Depends(get_db)):
