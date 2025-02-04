@@ -1,8 +1,10 @@
 import sys
-sys.path.append('../')
+#sys.path.append('../')
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from FAST_API import crud, models, schemas
+import crud
+import models
+import schemas
 from database import SessionLocal, engine
 
 # Initialize FastAPI
