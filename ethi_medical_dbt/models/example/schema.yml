@@ -4,6 +4,7 @@ sources:
     schema: public
     tables:
       - name: stg_medical_data
+      - name: detection_results  # Add this if detection_results is missing
 
 models:
   - name: medical_transformed_data
