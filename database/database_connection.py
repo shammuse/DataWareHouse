@@ -60,7 +60,8 @@ def create_tables():
             confidence_score FLOAT NOT NULL,
             class_name TEXT NOT NULL,
             bbox_coordinates TEXT NOT NULL,
-            result_image_path TEXT NOT NULL
+            result_image_path TEXT NOT NULL,
+            detection_time  TIMESTAMP
         );
         """
         
